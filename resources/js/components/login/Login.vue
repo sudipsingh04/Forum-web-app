@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import Axios from 'axios';
 
   export default {
       data(){
@@ -36,10 +35,7 @@ import Axios from 'axios';
       },
       methods: {
           login(){
-              Axios.post('/api/auth/login', this.form)
-              .then(res => console.log(res.data))
-              .catch(error => console.log(error.response.data))
-
+              User.login(this.form)
           }
       }
   }
