@@ -2407,6 +2407,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2451,6 +2453,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['data'],
   data: function data() {
@@ -2461,6 +2464,17 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     body: function body() {
       return md.parse(this.data.body);
+    }
+  },
+  methods: {
+    destroy: function destroy() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/question/".concat(this.data.slug)).then(function (res) {
+        return _this.$router.push('/forum');
+      })["catch"](function (error) {
+        return console.log(error.response.data);
+      });
     }
   }
 });
@@ -57174,7 +57188,8 @@ var render = function() {
                         "v-btn",
                         {
                           staticClass: "mx-2",
-                          attrs: { fab: "", dark: "", color: "red" }
+                          attrs: { fab: "", dark: "", color: "red" },
+                          on: { click: _vm.destroy }
                         },
                         [
                           _c("v-icon", { attrs: { dark: "" } }, [

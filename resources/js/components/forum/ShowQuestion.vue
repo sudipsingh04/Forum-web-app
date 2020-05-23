@@ -31,7 +31,7 @@
             <v-icon dark>mdi-pencil</v-icon>
           </v-btn>
 
-          <v-btn class="mx-2" fab dark color="red" v-if="own">
+          <v-btn class="mx-2" fab dark color="red" v-if="own" @click="destroy">
             <v-icon dark>mdi-delete</v-icon>
           </v-btn>
         </v-row>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import Axios from 'axios'
 export default {
     props:['data'],
     data(){
@@ -53,6 +54,13 @@ export default {
     computed: {
         body(){
             return md.parse(this.data.body)
+        }
+    },
+    methods: {
+        destroy(){
+            Axios.delete(`/api/question/${this.data.slug}`)
+            .then(res => this.$router.push('/forum'))
+            .catch(error => console.log(error.response.data))
         }
     }
 }
