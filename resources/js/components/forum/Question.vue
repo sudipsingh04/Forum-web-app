@@ -10,7 +10,9 @@
         </div>
     </v-card-title>
     <v-card-subtitle class="pb-0">
-        <p class="grey--text">{{ data.created_at }}</p>
+        <p class="grey--text">
+            {{data.user}} said {{ data.created_at }}
+        </p>
     </v-card-subtitle>
     <v-card-text>
         {{ data.body }}
