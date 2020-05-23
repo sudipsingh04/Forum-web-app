@@ -27,7 +27,7 @@
           <v-icon class="mx-2">mdi-reply-all</v-icon>
           <span class="subheading mr-2">256</span>
 
-          <v-btn class="mx-2" fab dark color="orange" v-if="own">
+          <v-btn class="mx-2" fab dark color="orange" v-if="own" @click="edit">
             <v-icon dark>mdi-pencil</v-icon>
           </v-btn>
 
@@ -61,6 +61,9 @@ export default {
             Axios.delete(`/api/question/${this.data.slug}`)
             .then(res => this.$router.push('/forum'))
             .catch(error => console.log(error.response.data))
+        },
+        edit(){
+            EventBus.$emit('startEditing')
         }
     }
 }

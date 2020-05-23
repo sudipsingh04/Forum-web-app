@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
+    protected $fillable = ['title', 'slug', 'body', 'user_id', 'category_id'];
+
     protected static function boot(){
         parent::boot();
         static::creating(function($question){
@@ -19,8 +21,6 @@ class Question extends Model
     {
         return 'slug';
     }
-
-    protected $guarded = [];
 
     public function user()
     {
