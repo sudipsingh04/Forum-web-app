@@ -2262,7 +2262,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/question', this.form).then(function (res) {
-        return console.log(res.data);
+        return _this2.$router.push(res.data.path);
       })["catch"](function (error) {
         return _this2.errors = error.response.data.error;
       });
@@ -2384,7 +2384,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      question: {}
+      question: null
     };
   },
   created: function created() {
@@ -2444,10 +2444,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data']
+  props: ['data'],
+  computed: {
+    body: function body() {
+      return md.parse(this.data.body);
+    }
+  }
 });
 
 /***/ }),
@@ -57056,7 +57059,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("show-question", { attrs: { data: _vm.question } })
+  return _vm.question
+    ? _c("show-question", { attrs: { data: _vm.question } })
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57145,9 +57150,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-card-text", { domProps: { innerHTML: _vm._s(_vm.data.body) } }, [
-        _vm._v("\n    " + _vm._s(_vm.data.body) + "\n  ")
-      ])
+      _c("v-card-text", { domProps: { innerHTML: _vm._s(_vm.body) } })
     ],
     1
   )
@@ -114332,8 +114335,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_simplemde__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-simplemde */ "./node_modules/vue-simplemde/src/index.vue");
 /* harmony import */ var simplemde_dist_simplemde_min_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! simplemde/dist/simplemde.min.css */ "./node_modules/simplemde/dist/simplemde.min.css");
 /* harmony import */ var simplemde_dist_simplemde_min_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(simplemde_dist_simplemde_min_css__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _Router_router_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Router/router.js */ "./resources/js/Router/router.js");
-/* harmony import */ var _Helpers_User__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Helpers/User */ "./resources/js/Helpers/User.js");
+/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! marked */ "./node_modules/marked/lib/marked.js");
+/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(marked__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _Router_router_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Router/router.js */ "./resources/js/Router/router.js");
+/* harmony import */ var _Helpers_User__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Helpers/User */ "./resources/js/Helpers/User.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -114343,15 +114348,17 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuetify__WEBPACK_IMPORTED_MODULE_
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('vue-simplemde', vue_simplemde__WEBPACK_IMPORTED_MODULE_2__["default"]);
+
+window.md = marked__WEBPACK_IMPORTED_MODULE_4___default.a;
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AppHome', __webpack_require__(/*! ./components/AppHome.vue */ "./resources/js/components/AppHome.vue")["default"]);
 
 
-window.User = _Helpers_User__WEBPACK_IMPORTED_MODULE_5__["default"];
+window.User = _Helpers_User__WEBPACK_IMPORTED_MODULE_6__["default"];
 window.EventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   vuetify: new vuetify__WEBPACK_IMPORTED_MODULE_1___default.a(),
-  router: _Router_router_js__WEBPACK_IMPORTED_MODULE_4__["default"]
+  router: _Router_router_js__WEBPACK_IMPORTED_MODULE_5__["default"]
 });
 
 /***/ }),

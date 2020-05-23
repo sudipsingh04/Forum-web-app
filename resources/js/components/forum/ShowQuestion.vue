@@ -31,15 +31,18 @@
       </v-list-item>
     </v-card-actions>
 
-    <v-card-text v-html="data.body">
-      {{ data.body }}
-    </v-card-text>
+    <v-card-text v-html="body"></v-card-text>
   </v-card>
 </template>
 
 <script>
 export default {
-    props:['data']
+    props:['data'],
+    computed: {
+        body(){
+            return md.parse(this.data.body)
+        }
+    }
 }
 </script>
 
