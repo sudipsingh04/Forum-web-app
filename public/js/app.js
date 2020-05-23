@@ -2444,8 +2444,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['data'],
+  data: function data() {
+    return {
+      own: User.own(this.data.user_id)
+    };
+  },
   computed: {
     body: function body() {
       return md.parse(this.data.body);
@@ -57133,13 +57145,45 @@ var render = function() {
                 "v-row",
                 { attrs: { align: "center", justify: "end" } },
                 [
-                  _c("v-icon", { staticClass: "mr-1" }, [
+                  _c("v-icon", { staticClass: "mx-2" }, [
                     _vm._v("mdi-reply-all")
                   ]),
                   _vm._v(" "),
                   _c("span", { staticClass: "subheading mr-2" }, [
                     _vm._v("256")
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _vm.own
+                    ? _c(
+                        "v-btn",
+                        {
+                          staticClass: "mx-2",
+                          attrs: { fab: "", dark: "", color: "orange" }
+                        },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-pencil")
+                          ])
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.own
+                    ? _c(
+                        "v-btn",
+                        {
+                          staticClass: "mx-2",
+                          attrs: { fab: "", dark: "", color: "red" }
+                        },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-delete")
+                          ])
+                        ],
+                        1
+                      )
+                    : _vm._e()
                 ],
                 1
               )
@@ -114252,6 +114296,11 @@ var User = /*#__PURE__*/function () {
         var payload = _Token__WEBPACK_IMPORTED_MODULE_1__["default"].payload(_AppStorage__WEBPACK_IMPORTED_MODULE_2__["default"].getToken());
         return payload.sub;
       }
+    }
+  }, {
+    key: "own",
+    value: function own(id) {
+      return this.id() == id;
     }
   }]);
 

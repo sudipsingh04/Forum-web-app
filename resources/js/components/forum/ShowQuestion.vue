@@ -20,13 +20,20 @@
           </v-list-item-title>
         </v-list-item-content>
 
-
         <v-row
           align="center"
           justify="end"
         >
-          <v-icon class="mr-1">mdi-reply-all</v-icon>
+          <v-icon class="mx-2">mdi-reply-all</v-icon>
           <span class="subheading mr-2">256</span>
+
+          <v-btn class="mx-2" fab dark color="orange" v-if="own">
+            <v-icon dark>mdi-pencil</v-icon>
+          </v-btn>
+
+          <v-btn class="mx-2" fab dark color="red" v-if="own">
+            <v-icon dark>mdi-delete</v-icon>
+          </v-btn>
         </v-row>
       </v-list-item>
     </v-card-actions>
@@ -38,6 +45,11 @@
 <script>
 export default {
     props:['data'],
+    data(){
+        return {
+            own: User.own(this.data.user_id)
+        }
+    },
     computed: {
         body(){
             return md.parse(this.data.body)
