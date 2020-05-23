@@ -3,8 +3,11 @@ require('./bootstrap');
 window.Vue = require('vue');
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-
 Vue.use(Vuetify)
+
+import VueSimplemde from 'vue-simplemde'
+import 'simplemde/dist/simplemde.min.css'
+Vue.component('vue-simplemde', VueSimplemde)
 
 Vue.component('AppHome', require('./components/AppHome.vue').default);
 import router from './Router/router.js'
