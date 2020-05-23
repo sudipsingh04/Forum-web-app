@@ -1,10 +1,34 @@
 <template>
-    <h1>Forum</h1>
+    <v-container fluid grid-list-md>
+        <v-layout row wrap>
+            <v-flex xs8>
+                <question
+                v-for="question in questions"
+                :key="question.path"
+                :data=question
+                ></question>
+            </v-flex>
+            Sidebar
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
-export default {
+import Question from './Question'
+import Axios from 'axios'
 
+export default {
+    data(){
+        return{
+            questions:{}
+        }
+    },
+    components: {Question},
+    created(){
+        Axios.get('/api/question')
+        .then(res => this.questions = res.data.data)
+        .catch(error => console.log(error.response.data))
+    }
 }
 </script>
 
