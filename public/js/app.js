@@ -2268,8 +2268,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submit: function submit() {
+      var _this2 = this;
+
       axios.post('/api/category', this.form).then(function (res) {
-        return console.log(res.data);
+        _this2.categories.unshift(res.data);
+
+        _this2.form.name = null;
+      });
+    },
+    destroy: function destroy(slug, index) {
+      var _this3 = this;
+
+      axios["delete"]("/api/category/".concat(slug)).then(function (res) {
+        return _this3.categories.splice(index, 1);
       });
     }
   }
@@ -57155,7 +57166,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-list",
-            _vm._l(_vm.categories, function(category) {
+            _vm._l(_vm.categories, function(category, index) {
               return _c(
                 "div",
                 { key: category.id },
@@ -57200,7 +57211,12 @@ var render = function() {
                             "v-btn",
                             {
                               staticClass: "mx-2",
-                              attrs: { fab: "", dark: "", color: "red" }
+                              attrs: { fab: "", dark: "", color: "red" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.destroy(category.slug, index)
+                                }
+                              }
                             },
                             [
                               _c("v-icon", { attrs: { dark: "" } }, [

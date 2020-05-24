@@ -16,7 +16,7 @@
                 <v-toolbar-title>Categories</v-toolbar-title>
             </v-toolbar>
             <v-list>
-                <div v-for="category in categories" :key="category.id">
+                <div v-for="(category, index) in categories" :key="category.id">
                     <v-list-item>
                         <v-list-item-action>
                             <v-btn class="mx-2" fab dark color="orange">
@@ -29,7 +29,7 @@
                         </v-list-item-content>
 
                         <v-list-item-action>
-                            <v-btn class="mx-2" fab dark color="red">
+                            <v-btn class="mx-2" fab dark color="red" @click="destroy(category.slug, index)">
                                 <v-icon dark>mdi-delete</v-icon>
                             </v-btn>
                         </v-list-item-action>
@@ -59,7 +59,14 @@ export default {
     methods: {
         submit(){
             axios.post('/api/category', this.form)
-            .then(res => console.log(res.data))
+            .then(res => {
+                this.categories.unshift(res.data)
+                this.form.name = null
+            })
+        },
+        destroy(slug, index){
+            axios.delete(`/api/category/${slug}`)
+            .then(res => this.categories.splice(index,1))
         }
     }
 }
