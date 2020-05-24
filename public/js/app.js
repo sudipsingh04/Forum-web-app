@@ -1997,7 +1997,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Category',
         to: '/category',
-        show: User.loggedIn()
+        show: User.admin()
       }, {
         title: 'Logout',
         to: '/logout',
@@ -2263,6 +2263,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     var _this = this;
+
+    if (!User.admin()) {
+      this.$router.push('/forum');
+    }
 
     axios.get('/api/category').then(function (res) {
       return _this.categories = res.data.data;
@@ -114886,6 +114890,11 @@ var User = /*#__PURE__*/function () {
     key: "own",
     value: function own(id) {
       return this.id() == id;
+    }
+  }, {
+    key: "admin",
+    value: function admin() {
+      return this.id() == 1;
     }
   }]);
 
