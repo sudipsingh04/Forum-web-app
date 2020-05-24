@@ -2,6 +2,7 @@
     <div v-if="question">
         <edit-question :data=question v-if="editing"></edit-question>
         <show-question :data=question v-else></show-question>
+        <replies :replies="question.replies"/>
     </div>
 </template>
 
@@ -9,9 +10,10 @@
 import Axios from 'axios'
 import ShowQuestion from './ShowQuestion'
 import EditQuestion from './EditQuestion'
+import Replies from '../reply/Replies'
 
 export default {
-    components:{ShowQuestion, EditQuestion},
+    components:{ShowQuestion, EditQuestion, Replies},
     data(){
         return {
             question: null,
