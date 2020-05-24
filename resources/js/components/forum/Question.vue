@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto">
+  <v-card class="mt-2">
     <v-card-title class="text--primary">
         <div>
             <h3 class="headline mb-0">
