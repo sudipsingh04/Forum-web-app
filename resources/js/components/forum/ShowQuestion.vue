@@ -24,8 +24,8 @@
           align="center"
           justify="end"
         >
-          <v-icon class="mx-2">mdi-reply-all</v-icon>
-          <span class="subheading mr-2">256</span>
+          <v-icon class="mx-2" >mdi-reply-all</v-icon>
+          <span class="subheading mr-2">{{ data.reply_count }} replies</span>
 
           <v-btn class="mx-2" fab dark color="orange" v-if="own" @click="edit">
             <v-icon dark>mdi-pencil</v-icon>

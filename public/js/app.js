@@ -57737,7 +57737,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("span", { staticClass: "subheading mr-2" }, [
-                    _vm._v("256")
+                    _vm._v(_vm._s(_vm.data.reply_count) + " replies")
                   ]),
                   _vm._v(" "),
                   _vm.own
