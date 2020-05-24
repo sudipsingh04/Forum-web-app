@@ -8,7 +8,8 @@
         required
         ></v-text-field>
 
-        <v-btn type="submit" color="teal">Create</v-btn>
+        <v-btn type="submit" color="pink" v-if="editSlug">Update</v-btn>
+        <v-btn type="submit" color="teal" v-else>Create</v-btn>
       </v-form>
 
         <v-card>
@@ -19,7 +20,7 @@
                 <div v-for="(category, index) in categories" :key="category.id">
                     <v-list-item>
                         <v-list-item-action>
-                            <v-btn class="mx-2" fab dark color="orange">
+                            <v-btn class="mx-2" fab dark color="orange" @click="edit(index)">
                                 <v-icon dark>mdi-pencil</v-icon>
                             </v-btn>
                         </v-list-item-action>
@@ -49,7 +50,8 @@ export default {
             form :{
                 name: null
             },
-            categories: {}
+            categories: {},
+            editSlug: null
         }
     },
     created(){
@@ -58,15 +60,31 @@ export default {
     },
     methods: {
         submit(){
+            this.editSlug ? this.update() : this.create()
+        },
+        create(){
             axios.post('/api/category', this.form)
             .then(res => {
                 this.categories.unshift(res.data)
                 this.form.name = null
             })
         },
+        update(){
+            axios.patch(`/api/category/${this.editSlug}`, this.form)
+            .then(res => {
+                this.categories.unshift(res.data)
+                this.form.name = null
+            })
+        },
+
         destroy(slug, index){
             axios.delete(`/api/category/${slug}`)
             .then(res => this.categories.splice(index,1))
+        },
+        edit(index){
+            this.form.name = this.categories[index].name
+            this.editSlug = this.categories[index].slug
+            this.categories.splice(index,1)
         }
     }
 }

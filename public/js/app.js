@@ -2250,13 +2250,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       form: {
         name: null
       },
-      categories: {}
+      categories: {},
+      editSlug: null
     };
   },
   created: function created() {
@@ -2268,6 +2270,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submit: function submit() {
+      this.editSlug ? this.update() : this.create();
+    },
+    create: function create() {
       var _this2 = this;
 
       axios.post('/api/category', this.form).then(function (res) {
@@ -2276,12 +2281,26 @@ __webpack_require__.r(__webpack_exports__);
         _this2.form.name = null;
       });
     },
-    destroy: function destroy(slug, index) {
+    update: function update() {
       var _this3 = this;
 
-      axios["delete"]("/api/category/".concat(slug)).then(function (res) {
-        return _this3.categories.splice(index, 1);
+      axios.patch("/api/category/".concat(this.editSlug), this.form).then(function (res) {
+        _this3.categories.unshift(res.data);
+
+        _this3.form.name = null;
       });
+    },
+    destroy: function destroy(slug, index) {
+      var _this4 = this;
+
+      axios["delete"]("/api/category/".concat(slug)).then(function (res) {
+        return _this4.categories.splice(index, 1);
+      });
+    },
+    edit: function edit(index) {
+      this.form.name = this.categories[index].name;
+      this.editSlug = this.categories[index].slug;
+      this.categories.splice(index, 1);
     }
   }
 });
@@ -57144,9 +57163,13 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("v-btn", { attrs: { type: "submit", color: "teal" } }, [
-            _vm._v("Create")
-          ])
+          _vm.editSlug
+            ? _c("v-btn", { attrs: { type: "submit", color: "pink" } }, [
+                _vm._v("Update")
+              ])
+            : _c("v-btn", { attrs: { type: "submit", color: "teal" } }, [
+                _vm._v("Create")
+              ])
         ],
         1
       ),
@@ -57181,7 +57204,12 @@ var render = function() {
                             "v-btn",
                             {
                               staticClass: "mx-2",
-                              attrs: { fab: "", dark: "", color: "orange" }
+                              attrs: { fab: "", dark: "", color: "orange" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.edit(index)
+                                }
+                              }
                             },
                             [
                               _c("v-icon", { attrs: { dark: "" } }, [
