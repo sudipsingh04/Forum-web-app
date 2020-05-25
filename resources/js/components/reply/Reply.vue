@@ -13,7 +13,7 @@
                 <v-btn icon small class="ml-2">
                     <v-icon color="orange">mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn icon small class="ml-2">
+                <v-btn icon small class="ml-2" @click="destroy">
                     <v-icon color="red">mdi-delete</v-icon>
                 </v-btn>
             </v-card-actions>
@@ -25,10 +25,15 @@
 
 <script>
 export default {
-    props: ['data'],
+    props: ['data', 'index'],
     computed: {
         own(){
             return User.own(this.data.user_id)
+        }
+    },
+    methods:{
+        destroy(){
+            EventBus.$emit('deleteReply', this.index)
         }
     }
 }

@@ -2801,12 +2801,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['replies'],
+  props: ['question'],
   data: function data() {
     return {
-      content: this.replies
+      content: this.question.replies
     };
   },
   components: {
@@ -2821,6 +2826,11 @@ __webpack_require__.r(__webpack_exports__);
 
       EventBus.$on('newReply', function (reply) {
         _this.content.unshift(reply);
+      });
+      EventBus.$on('deleteReply', function (index) {
+        axios["delete"]("/api/question/".concat(_this.question.slug, "/reply/").concat(_this.content[index].id)).then(function (res) {
+          _this.content.splice(index, 1);
+        });
       });
     }
   }
@@ -2863,10 +2873,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data'],
+  props: ['data', 'index'],
   computed: {
     own: function own() {
       return User.own(this.data.user_id);
+    }
+  },
+  methods: {
+    destroy: function destroy() {
+      EventBus.$emit('deleteReply', this.index);
     }
   }
 });
@@ -57801,7 +57816,7 @@ var render = function() {
           _c(
             "v-container",
             [
-              _c("replies", { attrs: { replies: _vm.question.replies } }),
+              _c("replies", { attrs: { question: _vm.question } }),
               _vm._v(" "),
               _c("new-reply", { attrs: { questionSlug: _vm.question.slug } })
             ],
@@ -58007,8 +58022,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.content, function(reply) {
-      return _c("reply", { key: reply.id, attrs: { data: reply } })
+    _vm._l(_vm.content, function(reply, index) {
+      return _c("reply", {
+        key: reply.id,
+        attrs: { data: reply, index: index }
+      })
     }),
     1
   )
@@ -58077,7 +58095,11 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-btn",
-                    { staticClass: "ml-2", attrs: { icon: "", small: "" } },
+                    {
+                      staticClass: "ml-2",
+                      attrs: { icon: "", small: "" },
+                      on: { click: _vm.destroy }
+                    },
                     [
                       _c("v-icon", { attrs: { color: "red" } }, [
                         _vm._v("mdi-delete")
