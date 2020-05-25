@@ -5,11 +5,20 @@ namespace App\Model;
 use App\User;
 use App\Model\Like;
 use App\Model\Question;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
     protected $guarded = [];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function($reply){
+            $reply->user_id = auth()->user()->id;
+        });
+    }
 
     public function question()
     {
