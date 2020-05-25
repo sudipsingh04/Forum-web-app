@@ -2784,8 +2784,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data']
+  props: ['data'],
+  computed: {
+    own: function own() {
+      return User.own(this.data.user_id);
+    }
+  }
 });
 
 /***/ }),
@@ -57916,7 +57934,43 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("v-card-text", { domProps: { innerHTML: _vm._s(_vm.data.reply) } })
+          _c("v-divider"),
+          _vm._v(" "),
+          _c("v-card-text", {
+            domProps: { innerHTML: _vm._s(_vm.data.reply) }
+          }),
+          _vm._v(" "),
+          _c("v-divider"),
+          _vm._v(" "),
+          _vm.own
+            ? _c(
+                "v-card-actions",
+                [
+                  _c(
+                    "v-btn",
+                    { staticClass: "ml-2", attrs: { icon: "", small: "" } },
+                    [
+                      _c("v-icon", { attrs: { color: "orange" } }, [
+                        _vm._v("mdi-pencil")
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    { staticClass: "ml-2", attrs: { icon: "", small: "" } },
+                    [
+                      _c("v-icon", { attrs: { color: "red" } }, [
+                        _vm._v("mdi-delete")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            : _vm._e()
         ],
         1
       )
