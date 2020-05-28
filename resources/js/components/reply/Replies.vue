@@ -39,6 +39,15 @@ export default {
                 .notification((notification) => {
                     this.content.unshift(notification.reply)
                 });
+
+            Echo.channel('deleteReplyChannel')
+                .listen('DeleteReplyEvent', (e) => {
+                    for (let index = 0; index < this.content.length; index++) {
+                        if(this.content[index].id == e.id){
+                            this.content.splice(index, 1)
+                        }
+                    }
+                });
         }
     }
 }
