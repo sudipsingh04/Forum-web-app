@@ -9,7 +9,19 @@ class Token{
 
     payload(token){
         const payload = token.split('.')[1]
-        return JSON.parse(atob(payload));
+
+        if(this.isBase64(payload)){
+            return JSON.parse(atob(payload));
+        }
+        return false
+    }
+
+    isBase64(str){
+        try {
+            return btoa(atob(str)).replace(/=/g,"") == str
+        } catch (error) {
+            return false
+        }
     }
 }
 
