@@ -25,7 +25,7 @@
           justify="end"
         >
           <v-icon class="mx-2" >mdi-reply-all</v-icon>
-          <span class="subheading mr-2">{{ data.reply_count }} replies</span>
+          <span class="subheading mr-2">{{ replyCount }} replies</span>
 
           <v-btn class="mx-2" fab dark color="orange" v-if="own" @click="edit">
             <v-icon dark>mdi-pencil</v-icon>
@@ -48,13 +48,33 @@ export default {
     props:['data'],
     data(){
         return {
-            own: User.own(this.data.user_id)
+            own: User.own(this.data.user_id),
+            replyCount: this.data.reply_count
         }
     },
     computed: {
         body(){
             return md.parse(this.data.body)
         }
+    },
+    created(){
+        EventBus.$on('newReply', () =>{
+            this.replyCount++
+        })
+
+        Echo.private('App.User.' + User.id())
+            .notification((notification) => {
+                this.replyCount++
+            });
+
+        EventBus.$on('deleteReply', () =>{
+            this.replyCount--
+        })
+
+        Echo.channel('deleteReplyChannel')
+                .listen('DeleteReplyEvent', (e) => {
+                    this.replyCount--
+                });
     },
     methods: {
         destroy(){
