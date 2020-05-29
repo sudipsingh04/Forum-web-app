@@ -8,8 +8,8 @@
         required
         ></v-text-field>
 
-        <v-btn type="submit" color="pink" v-if="editSlug">Update</v-btn>
-        <v-btn type="submit" color="teal" v-else>Create</v-btn>
+        <v-btn type="submit" :disabled="disabled" color="pink" v-if="editSlug">Update</v-btn>
+        <v-btn type="submit" :disabled="disabled" color="teal" v-else>Create</v-btn>
       </v-form>
 
         <v-card>
@@ -88,6 +88,11 @@ export default {
             this.form.name = this.categories[index].name
             this.editSlug = this.categories[index].slug
             this.categories.splice(index,1)
+        }
+    },
+    computed: {
+        disabled(){
+            return !this.form.name
         }
     }
 }
