@@ -30,6 +30,7 @@ export default {
             read: {},
             unread: {},
             unreadCount: 0,
+            sound: "http://soundbible.com/mp3/Air%20Plane%20Ding-SoundBible.com-496729130.mp3"
         }
     },
     created(){
@@ -39,11 +40,16 @@ export default {
 
         Echo.private('App.User.' + User.id())
                 .notification((notification) => {
+                    this.playSound()
                     this.unread.unshift(notification)
                     this.unreadCount++
                 });
     },
     methods: {
+        playSound(){
+            let alert = new Audio(this.sound)
+            alert.play()
+        },
         getNotifications(){
             axios.post('/api/notifications')
             .then(res => {
