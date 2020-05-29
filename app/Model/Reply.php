@@ -16,7 +16,8 @@ class Reply extends Model
     {
         parent::boot();
         static::creating(function($reply){
-            $reply->user_id = auth()->user()->id;
+            $userId = Auth::id();
+            $reply->user_id = $userId ? $userId : User::all()->random()->id;
         });
     }
 
