@@ -44,3 +44,11 @@ Please use the same port as mentioned above
 Email = sudipsingh04@gmail.com
 password = password
 ```
+## Screenshots
+
+![FireShot Capture 002 - SPA Forum - 127 0 0 1](https://user-images.githubusercontent.com/19596124/83287747-cf9b1100-a1ff-11ea-99d1-99ab9cd01cac.png)
+![FireShot Capture 003 - SPA Forum - 127 0 0 1](https://user-images.githubusercontent.com/19596124/83287758-d4f85b80-a1ff-11ea-9559-2bb3371d74d3.png)
+![FireShot Capture 004 - SPA Forum - 127 0 0 1](https://user-images.githubusercontent.com/19596124/83287768-d9bd0f80-a1ff-11ea-8963-485196d415c5.png)
+![FireShot Capture 005 - SPA Forum - 127 0 0 1](https://user-images.githubusercontent.com/19596124/83287775-dcb80000-a1ff-11ea-9986-f44378ca81ed.png)
+![FireShot Capture 006 - SPA Forum - 127 0 0 1](https://user-images.githubusercontent.com/19596124/83287777-dd509680-a1ff-11ea-83c0-e09f15e32263.png)
+![Screenshot (7)](https://user-images.githubusercontent.com/19596124/83287782-dde92d00-a1ff-11ea-85f3-ea153e7c52b9.png)
